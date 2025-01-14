@@ -18,20 +18,11 @@ for measurement in measurements:
 # calculate total_monthly_precipation
 total_monthly_precipation = []
 
-
 months = []
 for measurement in all_seattle:
     month = (int(measurement["date"].split("-")[1]))
     if month not in months:
         months.append(month)
-
-# jan_precipation = []
-# for measurement in all_seattle:
-#     if (int(measurement["date"].split("-")[1])) == 1:
-#         jan_precipation.append(measurement["value"])
-# total_jan = sum(jan_precipation)
-# print(total_jan)
-
 
 for month in months:
     month_precipation = []
@@ -43,6 +34,14 @@ for month in months:
     total_monthly_precipation.append(total_month)
 print(total_monthly_precipation)
 
+
+results = {}
+results["Seattle"] = {
+    "station"                   :  "GHCND:US1WAKG0038",
+    "state"                     :   "WA",
+    "total_monthly_precipation" :   total_monthly_precipation
+}
+
 # storing the results in a .json file
 with open("results.json", "w", encoding="utf-8") as file:
-    json.dump(total_monthly_precipation, file, indent=4, ensure_ascii=False)
+    json.dump(results, file, indent=4, ensure_ascii=False)
