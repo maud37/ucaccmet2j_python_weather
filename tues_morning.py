@@ -16,7 +16,7 @@ for measurement in measurements:
         all_seattle.append(measurement) 
 
 # calculate total_monthly_precipation
-total_monthly_precipation = []
+total_monthly_precipitation = []
 
 months = []
 for measurement in all_seattle:
@@ -25,21 +25,53 @@ for measurement in all_seattle:
         months.append(month)
 
 for month in months:
-    month_precipation = []
+    month_precipitation = []
     for measurement in all_seattle:
         if (int(measurement["date"].split("-")[1])) == month:
-            month_precipation.append(measurement["value"])
-    total_month = sum(month_precipation)
-    print(total_month)
-    total_monthly_precipation.append(total_month)
-print(total_monthly_precipation)
+            month_precipitation.append(measurement["value"])
+    total_month = sum(month_precipitation)
+    total_monthly_precipitation.append(total_month)
 
+year_precipitation_seattle = []
+for measurement in all_seattle:
+    year_precipitation_seattle.append(measurement["value"])
+total_yearly_precipitation_seattle = sum(year_precipitation_seattle)
+                                          
+# print(total_yearly_precipitation_seattle)
+
+relative_monthly_precipitation = []
+for measurement in total_monthly_precipitation:
+    relative_per_month = int(measurement) / int(total_yearly_precipitation_seattle)
+    relative_monthly_precipitation.append(relative_per_month)
+# print(relative_monthly_precipitation)
+# print(sum(relative_monthly_precipitation))
+
+
+# locations = []
+# for measurement in measurements:
+#     location = (measurement["station"])
+#     if location not in locations:
+#         locations.append(location)
+# print(locations)
+
+# total_yearly_precipation = []
+# for location in locations:
+#     location_precipation = []
+#     for measurement in measurements:
+#         if measurement["station"] == location:
+#             location_precipation.append(measurement["value"])
+#     total_year_location = sum(location_precipation)
+#     print(total_year_location)
+#     total_yearly_precipation.append(total_year_location)
+# print(total_yearly_precipation)
 
 results = {}
 results["Seattle"] = {
-    "station"                   :  "GHCND:US1WAKG0038",
-    "state"                     :   "WA",
-    "total_monthly_precipation" :   total_monthly_precipation
+    "station"                           : "GHCND:US1WAKG0038",
+    "state"                             : "WA",
+    "total_monthly_precipation"         : total_monthly_precipitation,
+    "total_yearly_precipipation"        : total_yearly_precipitation_seattle,
+    "relative_monthly_precipitation"    : relative_monthly_precipitation
 }
 
 # storing the results in a .json file
